@@ -1,9 +1,9 @@
 import axios from 'axios';
-import React, {  useEffect } from 'react';
-// import React, { useState, useEffect } from 'react';
+// import React, {  useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const BestBooks = () => {
-  // const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
     /* TODO: Make a GET request to your API to fetch all the books from the database */
@@ -14,6 +14,7 @@ const BestBooks = () => {
     const API = `http://localhost:3001/books`;
     console.log(API);
     const res = await axios.get(API);
+    setBooks(res.data);
     console.log(res);
   }
 
@@ -23,11 +24,11 @@ const BestBooks = () => {
     <>
       <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
-      {/* {books.length ? (
+      {books.length ? (
         <p>Book Carousel coming soon</p>
       ) : (
         <h3>No Books Found :(</h3>
-      )} */}
+      )}
     </>
   );
 };
