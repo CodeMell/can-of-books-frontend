@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 
 const BestBooks = () => {
-  const [books, setBooks] = useState([]);
+  // const [books, setBooks] = useState([]);
 
   useEffect(() => {
     /* TODO: Make a GET request to your API to fetch all the books from the database */
@@ -13,11 +13,11 @@ const BestBooks = () => {
     <>
       <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
-      {books.length ? (
+      {/* {books.length ? (
         <p>Book Carousel coming soon</p>
       ) : (
         <h3>No Books Found :(</h3>
-      )}
+      )} */}
     </>
   );
 };
