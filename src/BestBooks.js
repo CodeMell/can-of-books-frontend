@@ -14,7 +14,7 @@ const BestBooks = () => {
 // get request for books
   var getBooks = async() =>{
     try {
-      const API = `http://localhost:3001/books`;
+      const API = `https://can-of-books-backend-k4eg.onrender.com/books`;
       const res = await axios.get(API);
       setBooks(res.data);
     } catch (error) {
@@ -33,14 +33,15 @@ const BestBooks = () => {
         <Carousel>
           {books.map((book) => (
             <Carousel.Item key={book.id}>
-              <img
+              {/* <img
                 className="d-block w-100"
                 src={book.image}
                 alt={book.title}
-              />
+              /> */}
               <Carousel.Caption>
                 <h3>{book.title}</h3>
-                <p>{book.author}</p>
+                <p>{book.description}</p>
+                <p>{book.status}</p>
               </Carousel.Caption>
             </Carousel.Item>
           ))}
