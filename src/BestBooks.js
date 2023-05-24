@@ -14,8 +14,9 @@ const BestBooks = () => {
 // get request for books
   var getBooks = async() =>{
     try {
-      const API = `https://can-of-books-backend-k4eg.onrender.com/books`;
+      const API = `https://can-of-books-api-dyus.onrender.com/books`;
       const res = await axios.get(API);
+      console.log(res.data);
       setBooks(res.data);
     } catch (error) {
       console.error('Error fetching books:', error);
@@ -27,7 +28,7 @@ const BestBooks = () => {
   return (
     <>
       <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-
+    <br/>
       {books.length > 0 ? (
         // display books in a carousel
         <Carousel>
@@ -38,14 +39,15 @@ const BestBooks = () => {
                 src={book.image}
                 alt={book.title}
               /> */}
-              <Carousel.Caption>
                 <h3>{book.title}</h3>
                 <p>{book.description}</p>
                 <p>{book.status}</p>
-              </Carousel.Caption>
+              {/* <Carousel.Caption>
+              </Carousel.Caption> */}
             </Carousel.Item>
           ))}
         </Carousel>
+        
       ) : (
         <h3>The book collection is empty</h3>
       )}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 import Header from './Header';
 import Footer from './Footer';
 import BestBooks from './BestBooks';
@@ -10,7 +11,7 @@ function App() {
   return (
     <>
       <Router>
-        <Header />
+        <Header className="App"/>
         <Routes>
           <Route exact path="/" element={<BestBooks />} />
           {/* PLACEHOLDER: add a route with a path of '/about' that renders the `About` component */}
