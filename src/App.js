@@ -10,8 +10,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <>
-      <Router>
-        <Header className="App"/>
+      <Router className="App">
+        <Header />
         <Routes>
           <Route exact path="/" element={<BestBooks />} />
           {/* PLACEHOLDER: add a route with a path of '/about' that renders the `About` component */}

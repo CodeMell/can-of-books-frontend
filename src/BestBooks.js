@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import BookFormModal from './BookFormModal';
+import { Button } from 'react-bootstrap';
 
 const BestBooks = () => {
   const [books, setBooks] = useState([]);
@@ -23,6 +25,20 @@ const BestBooks = () => {
     }
   };
 
+  // delete a book
+  const deleteBook = async (bookId) => {
+    try {
+      const API = `https://can-of-books-api-dyus.onrender.com/books/${bookId}`;
+      await axios.delete(API);
+      console.log('Book deleted:', bookId);
+      window.location.reload(false);
+    } catch (error) {
+      console.error('Error deleting book:', error);
+    }
+  };
+  
+  
+
   /* TODO: Render all the books in a Carousel */
 
   return (
@@ -31,19 +47,18 @@ const BestBooks = () => {
     <br/>
       {books.length > 0 ? (
         // display books in a carousel
-        <Carousel>
+        <Carousel >
           {books.map((book) => (
-            <Carousel.Item key={book.id}>
-              {/* <img
-                className="d-block w-100"
-                src={book.image}
-                alt={book.title}
-              /> */}
+            <Carousel.Item key={book._id}>
+
                 <h3>{book.title}</h3>
                 <p>{book.description}</p>
                 <p>{book.status}</p>
-              {/* <Carousel.Caption>
-              </Carousel.Caption> */}
+                <div className="d-flex justify-content-center">
+                <Button variant="danger" onClick={() => deleteBook(book._id)}>Delete</Button>
+                </div>
+                <br/>
+                <br/>
             </Carousel.Item>
           ))}
         </Carousel>
@@ -51,6 +66,7 @@ const BestBooks = () => {
       ) : (
         <h3>The book collection is empty</h3>
       )}
+      <BookFormModal books={books} setBooks={setBooks}/>
     </>
   );
 };
