@@ -52,7 +52,7 @@ const BestBooks = () => {
       ) : (
         <h3>The book collection is empty</h3>
       )}
-      <BookFormModal/>
+      <BookFormModal books={books} setBooks={setBooks}/>
     </>
   );
 };
