@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 const BookFormModal = () => {
   const [showModal, setShowModal] = useState(false);
   const [bookData, setBookData] = useState({
     title: '',
     description: '',
-    status: '',
+    status: ''
   });
+
+//   var getBooks = async() =>{
+//     try {
+//       const API = `https://can-of-books-api-dyus.onrender.com/books`;
+//       const res = await axios.get(API);
+//       console.log(res.data);
+//       setBooks(res.data);
+//     } catch (error) {
+//       console.error('Error fetching books:', error);
+//     }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -26,7 +37,7 @@ const BookFormModal = () => {
     setBookData({
       title: '',
       description: '',
-      status: '',
+      status: ''
     });
     setShowModal(false);
   };
