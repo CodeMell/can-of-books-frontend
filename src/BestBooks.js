@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import BookFormModal from './BookFormModal';
 
 const BestBooks = () => {
   const [books, setBooks] = useState([]);
@@ -51,6 +52,7 @@ const BestBooks = () => {
       ) : (
         <h3>The book collection is empty</h3>
       )}
+      <BookFormModal/>
     </>
   );
 };
