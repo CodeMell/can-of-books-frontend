@@ -51,7 +51,7 @@ const BookFormModal = ({ books, setBooks }) => {
 
         return (
             <>
-                <Button variant="primary" onClick={handleModalOpen}>
+                <Button className='cenBTN' variant="primary" onClick={handleModalOpen}>
                     Add Book
                 </Button>
 
