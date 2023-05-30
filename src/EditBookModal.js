@@ -2,30 +2,32 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-const EditBookModal = ({ book, onUpdate }) => {
+const EditBookModal = ({ book, updateBook }) => {
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
+  const [editedBookData, setEditedBookData] = useState({
     title: book.title,
     description: book.description,
-    status: book.status
+    status: book.status,
   });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevData) => ({
+    setEditedBookData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const API = `https://can-of-books-api-dyus.onrender.com/books/${book.id}`;
-      const res = await axios.put(API, formData);
-      onUpdate(res.data);
+      const API = `https://can-of-books-api-dyus.onrender.com/books/${book._id}`;
+      const res = await axios.put(API, editedBookData);
+      // Update the book with the updated data
+      updateBook(res.data);
       console.log('Book updated:', res.data);
       setShowModal(false);
+      window.location.reload(false);
     } catch (error) {
       console.error('Error updating book:', error);
     }
@@ -41,7 +43,7 @@ const EditBookModal = ({ book, onUpdate }) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleModalOpen}>
+      <Button variant="secondary" onClick={handleModalOpen}>
         Edit
       </Button>
 
@@ -56,7 +58,7 @@ const EditBookModal = ({ book, onUpdate }) => {
               <Form.Control
                 type="text"
                 name="title"
-                value={formData.title}
+                value={editedBookData.title}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -65,7 +67,7 @@ const EditBookModal = ({ book, onUpdate }) => {
               <Form.Control
                 type="text"
                 name="status"
-                value={formData.status}
+                value={editedBookData.status}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -75,7 +77,7 @@ const EditBookModal = ({ book, onUpdate }) => {
                 as="textarea"
                 rows={3}
                 name="description"
-                value={formData.description}
+                value={editedBookData.description}
                 onChange={handleInputChange}
               />
             </Form.Group>
