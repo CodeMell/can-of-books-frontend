@@ -61,6 +61,7 @@ const BestBooks = () => {
                 <p>{book.status}</p>
                 <div className="d-flex justify-content-center">
                 <Button variant="danger" onClick={() => deleteBook(book._id)}>Delete</Button>
+                {/* edit the book's title, description, and status */}
                 <EditBookModal book={book} updateBook={updateBook} />
                 </div>
                 <br/>
