@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import BookFormModal from './BookFormModal';
+import EditBookModal from './EditBookModal';
 import { Button } from 'react-bootstrap';
 
 const BestBooks = () => {
@@ -37,7 +38,11 @@ const BestBooks = () => {
     }
   };
   
-  
+  const updateBook = (updatedBook) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
+    );
+  };
 
   /* TODO: Render all the books in a Carousel */
 
@@ -56,6 +61,7 @@ const BestBooks = () => {
                 <p>{book.status}</p>
                 <div className="d-flex justify-content-center">
                 <Button variant="danger" onClick={() => deleteBook(book._id)}>Delete</Button>
+                <EditBookModal book={book} updateBook={updateBook} />
                 </div>
                 <br/>
                 <br/>
