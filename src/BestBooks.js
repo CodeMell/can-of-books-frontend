@@ -14,11 +14,12 @@ const BestBooks = () => {
     getBooks();
   }, []);
 
-// get request for books
-  var getBooks = async() =>{
+  // get request for books
+  var getBooks = async () => {
     try {
       const API = `https://can-of-books-api-dyus.onrender.com/books`;
-      const res = await axios.get(API);
+      const token = localStorage.getItem('token'); // Retrieve the JWT from local storage
+      const res = await axios.get(API, { headers: { Authorization: `Bearer ${token}` } }); // Pass the JWT in the Authorization header
       console.log(res.data);
       setBooks(res.data);
     } catch (error) {
@@ -30,14 +31,15 @@ const BestBooks = () => {
   const deleteBook = async (bookId) => {
     try {
       const API = `https://can-of-books-api-dyus.onrender.com/books/${bookId}`;
-      await axios.delete(API);
+      const token = localStorage.getItem('token'); // Retrieve the JWT from local storage
+      await axios.delete(API, { headers: { Authorization: `Bearer ${token}` } }); // Pass the JWT in the Authorization header
       console.log('Book deleted:', bookId);
       window.location.reload(false);
     } catch (error) {
       console.error('Error deleting book:', error);
     }
   };
-  
+
   const updateBook = (updatedBook) => {
     setBooks((prevBooks) =>
       prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
@@ -49,33 +51,32 @@ const BestBooks = () => {
   return (
     <>
       <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-    <br/>
+      <br />
       {books.length > 0 ? (
         // display books in a carousel
-        <Carousel >
+        <Carousel>
           {books.map((book) => (
             <Carousel.Item key={book._id}>
-
-                <h3>{book.title}</h3>
-                <p>{book.description}</p>
-                <p>{book.status}</p>
-                <div className="d-flex justify-content-center">
-                <Button variant="danger" onClick={() => deleteBook(book._id)}>Delete</Button>
+              <h3>{book.title}</h3>
+              <p>{book.description}</p>
+              <p>{book.status}</p>
+              <div className="d-flex justify-content-center">
+                <Button variant="danger" onClick={() => deleteBook(book._id)}>
+                  Delete
+                </Button>
                 <EditBookModal book={book} updateBook={updateBook} />
-                </div>
-                <br/>
-                <br/>
+              </div>
+              <br />
+              <br />
             </Carousel.Item>
           ))}
         </Carousel>
-        
       ) : (
         <h3>The book collection is empty</h3>
       )}
-      <BookFormModal books={books} setBooks={setBooks}/>
+      <BookFormModal books={books} setBooks={setBooks} />
     </>
   );
 };
 
 export default BestBooks;
-
