@@ -57,13 +57,14 @@ const BestBooks = () => {
         <Carousel>
           {books.map((book) => (
             <Carousel.Item key={book._id}>
-              <h3>{book.title}</h3>
-              <p>{book.description}</p>
-              <p>{book.status}</p>
-              <div className="d-flex justify-content-center">
-                <Button variant="danger" onClick={() => deleteBook(book._id)}>
-                  Delete
-                </Button>
+
+
+                <h3>{book.title}</h3>
+                <p>{book.description}</p>
+                <p>{book.status}</p>
+                <div className="d-flex justify-content-center">
+                <Button variant="danger" onClick={() => deleteBook(book._id)}>Delete</Button>
+                {/* edit the book's title, description, and status */}
                 <EditBookModal book={book} updateBook={updateBook} />
               </div>
               <br />
