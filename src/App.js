@@ -20,7 +20,7 @@ function App() {
         <Routes>{/* route with a path of '/about' that renders the `About` component */}
           <Route exact path="/" element={isAuthenticated ? <BestBooks /> : <Welcome />} />
           <Route path="/about" element={<About />} />
-          <Route path="/profile" element={isAuthenticated ? <Profile /> : <Welcome />} />
+          <Route path="/profile" element={isAuthenticated ? <Profile /> : <div/>} />
         </Routes>
         <Footer />
       </Router>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Header = () => {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  let { loginWithRedirect, logout, isAuthenticated } = useAuth0();
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="nav">
@@ -16,15 +16,7 @@ const Header = () => {
       <Nav.Item>
         <Link to="/about" className="nav-link">About</Link>
       </Nav.Item>
-      {isAuthenticated ? (
-        <Button variant="light" onClick={() => logout({ returnTo: window.location.origin })}>
-          Logout
-        </Button>
-      ) : (
-        <Button variant="light" onClick={loginWithRedirect}>
-          Login
-        </Button>
-      )}
+      {isAuthenticated === false ?  <Button variant="light" onClick={() =>{loginWithRedirect()}}>Login</Button> : <Button variant="light" onClick={() =>{logout()}}>Logout</Button>}
     </Navbar>
   );
 };
