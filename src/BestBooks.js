@@ -4,34 +4,37 @@ import Carousel from 'react-bootstrap/Carousel';
 import BookFormModal from './BookFormModal';
 import EditBookModal from './EditBookModal';
 import { Button } from 'react-bootstrap';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const BestBooks = () => {
   const [books, setBooks] = useState([]);
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     /* TODO: Make a GET request to your API to fetch all the books from the database */
+    
+    // get request for books
+    var getBooks = async () => {
+      try {
+        const API = `https://can-of-books-api-dyus.onrender.com/books`;
+        const token = await getAccessTokenSilently(); // Retrieve the access token
+        const res = await axios.get(API, { headers: { Authorization: `Bearer ${token}` } }); // Pass the JWT in the Authorization header
+        console.log(res.data);
+        setBooks(res.data);
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    };
     // run get request
     getBooks();
-  }, []);
+  }, [getAccessTokenSilently]);
 
-  // get request for books
-  var getBooks = async () => {
-    try {
-      const API = `https://can-of-books-api-dyus.onrender.com/books`;
-      const token = localStorage.getItem('token'); // Retrieve the JWT from local storage
-      const res = await axios.get(API, { headers: { Authorization: `Bearer ${token}` } }); // Pass the JWT in the Authorization header
-      console.log(res.data);
-      setBooks(res.data);
-    } catch (error) {
-      console.error('Error fetching books:', error);
-    }
-  };
 
   // delete a book
   const deleteBook = async (bookId) => {
     try {
       const API = `https://can-of-books-api-dyus.onrender.com/books/${bookId}`;
-      const token = localStorage.getItem('token'); // Retrieve the JWT from local storage
+      const token = await getAccessTokenSilently(); // Retrieve the access token
       await axios.delete(API, { headers: { Authorization: `Bearer ${token}` } }); // Pass the JWT in the Authorization header
       console.log('Book deleted:', bookId);
       window.location.reload(false);
