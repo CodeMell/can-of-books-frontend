@@ -16,7 +16,12 @@ const Header = () => {
       <Nav.Item>
         <Link to="/about" className="nav-link">About</Link>
       </Nav.Item>
+      <Nav.Item>
+        {isAuthenticated ? <Link to="/profile" className="nav-link">Profile</Link> : ''}
+      </Nav.Item>
+      
       {isAuthenticated === false ?  <Button variant="light" onClick={() =>{loginWithRedirect()}}>Login</Button> : <Button variant="light" onClick={() =>{logout()}}>Logout</Button>}
+      
     </Navbar>
   );
 };
